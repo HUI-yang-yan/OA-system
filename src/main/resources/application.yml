@@ -1,0 +1,52 @@
+jwt:
+  secret: mySuperSecretKeyForJWT!@#123mySuperSecret
+  expiration: 36000000000  # 1小时（毫秒）
+
+server:
+  address: 0.0.0.0
+  port: 8000
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.ticket.system.common.domain
+  configuration:
+    map-underscore-to-camel-case: true
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+  datasource:
+    url: jdbc:mysql://192.168.171.131:3306/ticket_system_12306?serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 2191967298@qq.com
+    password: hzncmnrqtqstdidi  # 这是授权码，不是密码
+    protocol: smtp
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+  data:
+    redis:
+      host: 192.168.171.131
+      port: 6379
+      database: 3
+
+
+

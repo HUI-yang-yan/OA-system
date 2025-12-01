@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oa.mapper.LeaveMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO leave_applications
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applicantId != null">applicant_id,</if>
+            <if test="leaveTypeId != null">leave_type_id,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="totalDays != null">total_days,</if>
+            <if test="reason != null">reason,</if>
+            <if test="status != null">status,</if>
+            <if test="currentApproverId != null">current_approver_id,</if>
+        </trim>
+
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="applicantId != null">#{applicantId},</if>
+            <if test="leaveTypeId != null">#{leaveTypeId},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="totalDays != null">#{totalDays},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="status != null">#{status},</if>
+            <if test="currentApproverId != null">#{currentApproverId},</if>
+        </trim>
+    </insert>
+
+    <select id="getAllLeaveTypes" resultType="com.oa.dto.LeaveTypesDTO">
+        select id,type_name from leave_types ;
+    </select>
+    <select id="getAllLeaveDetails" resultType="com.oa.domain.LeaveApplication">
+        select * from leave_applications ;
+    </select>
+</mapper>

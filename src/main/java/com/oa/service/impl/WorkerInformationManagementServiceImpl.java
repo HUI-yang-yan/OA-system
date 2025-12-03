@@ -33,7 +33,7 @@ public class WorkerInformationManagementServiceImpl implements WorkerInformation
         for(User user:userList){
             user.setStatus(status);
         }
-        userMapper.updateBatch(list);
+        userMapper.updateBatch(userList);
         return Result.success("更新成功!");
     }
 

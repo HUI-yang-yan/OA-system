@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oa.mapper.UserMapper">
+
+
+    <update id="update">
+        UPDATE users
+        <set>
+            <if test="employeeId != null">
+                employee_id = #{employeeId},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="position != null">
+                position = #{position},
+            </if>
+            <if test="hireDate != null">
+                hire_date = #{hireDate},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="avatarUrl != null">
+                avatar_url = #{avatarUrl},
+            </if>
+            <!-- updated_at 自动更新，无需手动处理 -->
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <update id="updateBatch">
+        UPDATE users
+        SET status = 'inactive'
+        WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <select id="selectByIds" resultType="com.oa.domain.User">
+        SELECT
+        id, employee_id, username, password, real_name, email, phone,
+        department_id, position, hire_date, status,
+        avatar_url, created_at, updated_at
+        FROM users
+        WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <delete id="deleteBatch">
+        DELETE FROM users
+        WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="pageSelect" resultType="com.oa.domain.User">
+        SELECT
+        id, employee_id, username, password, real_name, email, phone,
+        department_id, position, hire_date, status,
+        avatar_url, created_at, updated_at
+        FROM users
+        <where>
+            <if test="username != null and username.trim() != ''">
+                AND username LIKE CONCAT('%', #{username}, '%')
+            </if>
+
+            <if test="employeeId != null and employeeId.trim() != ''">
+                AND employee_id LIKE CONCAT('%', #{employeeId}, '%')
+            </if>
+
+            <if test="departmentId != null">
+                AND department_id = #{departmentId}
+            </if>
+
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+
+            <if test="position != null and position.trim() != ''">
+                AND position LIKE CONCAT('%', #{position}, '%')
+            </if>
+
+            <!-- 时间过滤：startTime 之后创建的用户 -->
+            <if test="startTime != null">
+                AND created_at &gt;= #{startTime}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+
+    <select id="getUserNum" resultType="int">
+        SELECT COUNT(*) FROM users
+    </select>
+
+
+    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users(
+            employee_id, username, password, real_name, email,
+            phone, department_id, position, hire_date,
+            status, avatar_url
+        ) VALUES (
+                     #{employeeId}, #{username}, #{password}, #{realName}, #{email},
+                     #{phone}, #{departmentId}, #{position}, #{hireDate},
+                     #{status}, #{avatarUrl}
+                 )
+    </insert>
+
+
+
+
+</mapper>

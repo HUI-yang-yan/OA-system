@@ -7,5 +7,4 @@ public interface EquipmentMapper {
     Integer getAllEquipmentNum();
 
     Integer getValidEquipmentNum();
-
 }

@@ -26,7 +26,7 @@ spring:
 
 
   datasource:
-    url: jdbc:mysql://192.168.171.131:3306/ticket_system_12306?serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://192.168.171.131:3306/oa_management_system?serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 123
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -36,7 +36,7 @@ spring:
     host: smtp.qq.com
     port: 587
     username: 2191967298@qq.com
-    password: hzncmnrqtqstdidi  # 这是授权码，不是密码
+    password: omfnbrlpqybbeche  # 这是授权码，不是密码
     protocol: smtp
     properties:
       mail.smtp.auth: true

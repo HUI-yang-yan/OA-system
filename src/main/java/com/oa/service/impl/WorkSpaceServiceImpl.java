@@ -73,7 +73,7 @@ public class WorkSpaceServiceImpl implements WorkSpaceService {
     // 加锁
     @Override
     public Result signIn(LocalDateTime signInTime) {
-        AttendanceRecord attendanceRecord  = AttendanceRecord.builder()
+        AttendanceRecord attendanceRecord = AttendanceRecord.builder()
                 .checkInTime(signInTime)
                 .userId(BaseContext.getUserId())
                 .build();

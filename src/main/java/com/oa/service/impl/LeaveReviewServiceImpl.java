@@ -80,9 +80,8 @@ public class LeaveReviewServiceImpl implements LeaveReviewService {
         Period between = Period.between(leaveApplicationDTO.getStartTime(), leaveApplicationDTO.getEndTime());
         leaveApplication.setTotalDays(between.getDays());
 
-        Long adminId = userMapper.getAdminId();
-
-        leaveApplication.setCurrentApproverId(adminId);
+        //todo
+        leaveApplication.setCurrentApproverId(0L);
         return leaveApplication;
     }
 }

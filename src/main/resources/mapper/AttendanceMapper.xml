@@ -28,13 +28,51 @@
             <if test="location != null">#{location},</if>
         </trim>
     </insert>
-    <update id="updateById">
-
+    <update id="updateById" >
+        UPDATE attendance_records
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="checkInTime != null">
+                check_in_time = #{checkInTime},
+            </if>
+            <if test="checkOutTime != null">
+                check_out_time = #{checkOutTime},
+            </if>
+            <if test="workDate != null">
+                work_date = #{workDate},
+            </if>
+            <if test="totalHours != null">
+                total_hours = #{totalHours},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="ipAddress != null">
+                ip_address = #{ipAddress},
+            </if>
+            <if test="location != null">
+                location = #{location},
+            </if>
+        </set>
+        WHERE id = #{id}
     </update>
+
     <select id="selectByUserId" resultType="com.oa.domain.AttendanceRecord">
-
+        select * from attendance_records where user_id = #{id}
     </select>
-    <select id="selectByUserIdAndTime" resultType="com.oa.domain.AttendanceRecord">
-
+    <select id="selectByUserIdAndTime"
+            parameterType="map"
+            resultType="com.oa.domain.AttendanceRecord">
+        SELECT
+            id, user_id, check_in_time, check_out_time,
+            work_date, total_hours, status,
+            ip_address, location, created_at, updated_at
+        FROM attendance_records
+        WHERE user_id = #{userId}
+          AND work_date = DATE(#{now})
+        LIMIT 1
     </select>
+
 </mapper>
